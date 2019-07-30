@@ -1,7 +1,9 @@
 import {
-demo
+  add,
+  merge,
 } from '../lib/index';
 
 export {
-demo
+  add,
+  merge,
 };
