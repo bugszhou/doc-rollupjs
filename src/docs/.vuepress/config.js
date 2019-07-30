@@ -1,6 +1,6 @@
 module.exports = {
   host: 'localhost',
-  base: '/',
+  base: '/rollupjs_1/',
   port: 8666,
   title: '十分钟学会Rollup.js',
   description: '使用Rollup.js构建公共库',

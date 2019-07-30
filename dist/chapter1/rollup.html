@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>入门Rollup | 十分钟学会Rollup.js</title>
+    <meta name="description" content="使用Rollup.js构建公共库">
+    
+    
+    <link rel="preload" href="/rollupjs_1/assets/css/0.styles.4768f33c.css" as="style"><link rel="preload" href="/rollupjs_1/assets/js/app.658a4bef.js" as="script"><link rel="preload" href="/rollupjs_1/assets/js/2.0c04bd17.js" as="script"><link rel="preload" href="/rollupjs_1/assets/js/9.740a3fd8.js" as="script"><link rel="prefetch" href="/rollupjs_1/assets/js/10.dffb93f3.js"><link rel="prefetch" href="/rollupjs_1/assets/js/3.7d1aae6b.js"><link rel="prefetch" href="/rollupjs_1/assets/js/4.8d26481d.js"><link rel="prefetch" href="/rollupjs_1/assets/js/5.ad098a8e.js"><link rel="prefetch" href="/rollupjs_1/assets/js/6.c6249d8b.js"><link rel="prefetch" href="/rollupjs_1/assets/js/7.9730a471.js"><link rel="prefetch" href="/rollupjs_1/assets/js/8.66f8a538.js">
+    <link rel="stylesheet" href="/rollupjs_1/assets/css/0.styles.4768f33c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/rollupjs_1/" class="home-link router-link-active"><!----> <span class="site-name">十分钟学会Rollup.js</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/rollupjs_1/chapter1/" class="sidebar-link">学习Rollup背景</a></li><li><a href="/rollupjs_1/chapter1/prd.html" class="sidebar-link">编写类库的需求</a></li><li><a href="/rollupjs_1/chapter1/rollup.html" class="active sidebar-link">入门Rollup</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/rollupjs_1/chapter1/rollup.html#建立项目" class="sidebar-link">建立项目</a></li><li class="sidebar-sub-header"><a href="/rollupjs_1/chapter1/rollup.html#rollup常用插件" class="sidebar-link">Rollup常用插件</a></li><li class="sidebar-sub-header"><a href="/rollupjs_1/chapter1/rollup.html#配置rollup-js配置文件" class="sidebar-link">配置Rollup.js配置文件</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="入门rollup"><a href="#入门rollup" aria-hidden="true" class="header-anchor">#</a> 入门Rollup</h1> <p>Rollup.js是一款JavaScript模块打包工具，默认只支持ES6的包引入方式。对<code>require</code>等cmd方式，需要使用插件才能支持。前端著名的vue、react等知名类库的都是采用Rollupjs来打包构建的。Rollupjs比较适合类库、公共库打包构建。</p> <p>这一节，我们通过编写一个长整型加法的库来创建一个比较通用的Rollup.js目录结构和配置，这个配置满足上一节我们提出的需求。</p> <p><a href="https://rollupjs.org/guide/en/#introduction" target="_blank" rel="noopener noreferrer">Rollup官方文档<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="https://www.rollupjs.com/guide/zh" target="_blank" rel="noopener noreferrer">Rollup中文文档<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="建立项目"><a href="#建立项目" aria-hidden="true" class="header-anchor">#</a> 建立项目</h2> <h3 id="创建目录结构"><a href="#创建目录结构" aria-hidden="true" class="header-anchor">#</a> 创建目录结构</h3> <div class="language- extra-class"><pre class="language-text"><code>├── docs // 存储文档
+├── src // 源码目录
+│   ├─ entry
+│   │    ├─ .babelrc // babel配置文件
+│   │    └─ index.js  // 入口文件
+│   ├─ lib // 存储类库源码
+│   │    └─ index.js  // 类库入口文件
+├── .gitignore
+├── .npmignore
+├── index.js // package.json中main的入口文件
+├── rollup.config.es5.js // rollup编译成es5规范的配置文件
+├── rollup.config.js // rollup编译成umd和esm规范的配置文件
+├── package.json
+└── README.md
+</code></pre></div><p>在这个目录结构中，我把Rollup的配置文件分成了两个，虽然这样弄存在一定的冗余，但是这种方式职责单一，方便维护。</p> <p>在<code>src</code>的文件目录下，我分成了两个文件夹entry和lib：entry是提供给Rollup打包编译的入口文件，lib是存储类库真正的逻辑源码</p> <h2 id="rollup常用插件"><a href="#rollup常用插件" aria-hidden="true" class="header-anchor">#</a> Rollup常用插件</h2> <p>由于Rollup.js要求使用es6的模块规范，所以在编写其配置文件时，需要使用<code>export</code>语法导出，不能使用<code>module.exports</code>来导出。</p> <p>我们先来列举一下，基本需要的Rollup插件：</p> <ol><li>rollup-plugin-node-resolve</li> <li>rollup-plugin-commonjs</li> <li>rollup-plugin-babel</li> <li>rollup-plugin-json</li> <li>@joseph184/rollup-plugin-node-builtins</li> <li>rollup-plugin-node-globals</li> <li>rollup-plugin-terser</li></ol> <p>大致需要这7种插件就能满足一个类库的编写了，下面我们介绍一下这7中插件的作用：</p> <h3 id="rollup-plugin-node-resolve"><a href="#rollup-plugin-node-resolve" aria-hidden="true" class="header-anchor">#</a> rollup-plugin-node-resolve</h3> <p>这个插件主要是告诉Rollup如何查找第三方模块。在nodejs中，所有的第三方模块都存放在<code>node_modules</code>中，使用这个插件，就是标明遇到第三方模时，都去<code>node_modules</code>下面找。</p> <p><a href="https://github.com/rollup/rollup-plugin-node-resolve" target="_blank" rel="noopener noreferrer">使用指南<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h3 id="rollup-plugin-commonjs"><a href="#rollup-plugin-commonjs" aria-hidden="true" class="header-anchor">#</a> rollup-plugin-commonjs</h3> <p>我们大部分都是通过<code>npm</code>使用第三方包的，npm全称是node package manager。从名字上看，主要是为了nodejs服务的，然而nodejs是使用cmd也就是commonjs模块规范的。这就导致很多第三方包和Rollup的设计理念冲突，为了实现两者共存，就出现了<code>rollup-plugin-commonjs</code>这个插件来解决。</p> <p><code>rollup-plugin-commonjs</code>的主要作用是把使用cmd规范的包转换成使用es6模块规范。举个栗子：就是把<code>module.exports</code>变成<code>export default</code>。</p> <p>由于其他的插件有可能会改变代码的结构，导致影响CommonJS的检测，所以<code>rollup-plugin-commonjs</code>应该放在其他插件前使用</p> <p><a href="https://github.com/rollup/rollup-plugin-commonjs" target="_blank" rel="noopener noreferrer">使用指南<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h3 id="rollup-plugin-babel"><a href="#rollup-plugin-babel" aria-hidden="true" class="header-anchor">#</a> rollup-plugin-babel</h3> <p>这个插件很简单，就是配合babel转换es6/es7等更加高级的语法</p> <p><a href="https://github.com/rollup/rollup-plugin-babel" target="_blank" rel="noopener noreferrer">使用指南<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h3 id="rollup-plugin-json"><a href="#rollup-plugin-json" aria-hidden="true" class="header-anchor">#</a> rollup-plugin-json</h3> <p><code>rollup-plugin-json</code>的主要作用是支持在js文件中引入<code>json</code>文件，把<code>json</code>文件转换成使用es6模块导出的js对象，例如：转换package.json</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// import a single property from a JSON file,</span>
+<span class="token comment">// discarding the rest</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> version <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./package.json'</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">running version </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>version<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// import the whole file as an object</span>
+<span class="token keyword">import</span> pkg <span class="token keyword">from</span> <span class="token string">'./package.json'</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">running version </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>pkg<span class="token punctuation">.</span>version<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p><a href="https://github.com/rollup/rollup-plugin-json" target="_blank" rel="noopener noreferrer">使用指南<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h3 id="joseph184-rollup-plugin-node-builtins-和-rollup-plugin-node-globals"><a href="#joseph184-rollup-plugin-node-builtins-和-rollup-plugin-node-globals" aria-hidden="true" class="header-anchor">#</a> <code>@joseph184/rollup-plugin-node-builtins</code> 和 <code>rollup-plugin-node-globals</code></h3> <p>这两个插件，是提供nodejs内置方法和全局变量的类库，比如：fs path crypto等等</p> <p><a href="https://github.com/calvinmetcalf/rollup-plugin-node-builtins#readme" target="_blank" rel="noopener noreferrer">使用指南<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h3 id="rollup-plugin-terser"><a href="#rollup-plugin-terser" aria-hidden="true" class="header-anchor">#</a> <code>rollup-plugin-terser</code></h3> <p>用来压缩混淆代码，和<code>terser-webpack-plugin</code>功能一样</p> <p><a href="https://github.com/TrySound/rollup-plugin-terser#readme" target="_blank" rel="noopener noreferrer">使用指南<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="配置rollup-js配置文件"><a href="#配置rollup-js配置文件" aria-hidden="true" class="header-anchor">#</a> 配置Rollup.js配置文件</h2> <p><a href="https://rollupjs.org/guide/en/#introduction" target="_blank" rel="noopener noreferrer">点击查看Rollupjs配置指南<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h3 id="esm和umd的配置"><a href="#esm和umd的配置" aria-hidden="true" class="header-anchor">#</a> esm和umd的配置</h3> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> path <span class="token keyword">from</span> <span class="token string">'path'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> resolve <span class="token keyword">from</span> <span class="token string">'rollup-plugin-node-resolve'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> commonjs <span class="token keyword">from</span> <span class="token string">'rollup-plugin-commonjs'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> babel <span class="token keyword">from</span> <span class="token string">'rollup-plugin-babel'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> json <span class="token keyword">from</span> <span class="token string">'rollup-plugin-json'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> builtins <span class="token keyword">from</span> <span class="token string">'@joseph184/rollup-plugin-node-builtins'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> globals <span class="token keyword">from</span> <span class="token string">'rollup-plugin-node-globals'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> terser <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;rollup-plugin-terser&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  external<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  input<span class="token punctuation">:</span> <span class="token string">'src/entry/index.js'</span><span class="token punctuation">,</span>
+  output<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token comment">// umd，第三方依赖未打包</span>
+    <span class="token punctuation">{</span>
+      name<span class="token punctuation">:</span> <span class="token string">'demo'</span><span class="token punctuation">,</span>
+      file<span class="token punctuation">:</span> <span class="token string">'dist/demo.js'</span><span class="token punctuation">,</span>
+      format<span class="token punctuation">:</span> <span class="token string">'umd'</span><span class="token punctuation">,</span>
+      sourcemap<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      strict<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      noConflict<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// umd压缩后，第三方依赖未打包</span>
+    <span class="token punctuation">{</span>
+      name<span class="token punctuation">:</span> <span class="token string">'demo'</span><span class="token punctuation">,</span>
+      file<span class="token punctuation">:</span> <span class="token string">'dist/demo.common.js'</span><span class="token punctuation">,</span>
+      format<span class="token punctuation">:</span> <span class="token string">'umd'</span><span class="token punctuation">,</span>
+      sourcemap<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      strict<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      noConflict<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// 使用es6 import语法</span>
+    <span class="token punctuation">{</span>
+      file<span class="token punctuation">:</span> <span class="token string">'dist/demo.esm.js'</span><span class="token punctuation">,</span>
+      format<span class="token punctuation">:</span> <span class="token string">'es'</span><span class="token punctuation">,</span>
+      sourcemap<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      strict<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">builtins</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">commonjs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">globals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">babel</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      configFile<span class="token punctuation">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'./src/entry/.babelrc'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      runtimeHelpers<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      exclude<span class="token punctuation">:</span> <span class="token string">'node_modules/**'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">terser</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      include<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token regex">/^.+\.common\.js$/</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  watch<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    clearScreen<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    include<span class="token punctuation">:</span> <span class="token string">'src/**'</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+</code></pre></div><p>我们针对几个重点配置说明一下：</p> <ul><li><code>external</code> 是避免依赖包一起打包进去的配置项</li></ul> <p>举个栗子：如果我们在类库中依赖于<code>lodash</code>，那么</p> <div class="language-git extra-class"><pre class="language-git"><code><span class="token deleted">- external: [],</span>
+<span class="token inserted">+ external: ['lodash'],</span>
+</code></pre></div><p>这样配置的话，<code>lodash</code>的具体代码就不会打包编译到文件内了</p> <ul><li><p><code>input</code> 入口文件</p></li> <li><p><code>output</code> 编译输出配置</p></li></ul> <ol><li><code>file</code>文件生成路径</li> <li><code>name</code>导出包名或者全局对象变量名</li> <li><code>format</code>打包类型：<code>amd</code>，<code>cjs</code>，<code>umd</code>，<code>esm</code>，<code>iife</code> <code>iife</code> -- 编译成自运行函数</li></ol> <p>其他的参数，这里就不展开了，很容易理解</p> <h3 id="es5配置"><a href="#es5配置" aria-hidden="true" class="header-anchor">#</a> es5配置</h3> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> path <span class="token keyword">from</span> <span class="token string">'path'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> resolve <span class="token keyword">from</span> <span class="token string">'rollup-plugin-node-resolve'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> commonjs <span class="token keyword">from</span> <span class="token string">'rollup-plugin-commonjs'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> babel <span class="token keyword">from</span> <span class="token string">'rollup-plugin-babel'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> json <span class="token keyword">from</span> <span class="token string">'rollup-plugin-json'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> builtins <span class="token keyword">from</span> <span class="token string">'@joseph184/rollup-plugin-node-builtins'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> globals <span class="token keyword">from</span> <span class="token string">'rollup-plugin-node-globals'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> terser <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;rollup-plugin-terser&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  input<span class="token punctuation">:</span> <span class="token string">'src/entry/index.js'</span><span class="token punctuation">,</span>
+  output<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token comment">// umd模式，打包所有的依赖，可供浏览器直接使用</span>
+    <span class="token punctuation">{</span>
+      name<span class="token punctuation">:</span> <span class="token string">'demo'</span><span class="token punctuation">,</span>
+      file<span class="token punctuation">:</span> <span class="token string">'dist/demo.dev.js'</span><span class="token punctuation">,</span>
+      format<span class="token punctuation">:</span> <span class="token string">'umd'</span><span class="token punctuation">,</span>
+      sourcemap<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      strict<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      noConflict<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// umd模式，压缩后，打包所有的依赖，可供浏览器直接使用</span>
+    <span class="token punctuation">{</span>
+      name<span class="token punctuation">:</span> <span class="token string">'demo'</span><span class="token punctuation">,</span>
+      file<span class="token punctuation">:</span> <span class="token string">'dist/demo.min.js'</span><span class="token punctuation">,</span>
+      format<span class="token punctuation">:</span> <span class="token string">'umd'</span><span class="token punctuation">,</span>
+      sourcemap<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      strict<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      noConflict<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">builtins</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">commonjs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">globals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">babel</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      configFile<span class="token punctuation">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'./src/entry/.babelrc'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      runtimeHelpers<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      exclude<span class="token punctuation">:</span> <span class="token string">'node_modules/**'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">terser</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      include<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token regex">/^.+\.min\.js$/</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>和<code>esm</code>的配置类似，主要少了<code>external</code>。</p> <h3 id="配置babel"><a href="#配置babel" aria-hidden="true" class="header-anchor">#</a> 配置<code>babel</code></h3> <p>目前<code>babel</code>使用7版本以上的，支持<code>@babel/runtime-corejs2</code>内的所有高级语法。具体配置可以查看<code>src/entry/.babelrc</code>文件。</p> <p>该babel配置支持class私有属性、class私有方法、async、await等语法</p> <p>接下来，进入实战部分：</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/rollupjs_1/chapter1/prd.html" class="prev">
+          编写类库的需求
+        </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/rollupjs_1/assets/js/app.658a4bef.js" defer></script><script src="/rollupjs_1/assets/js/2.0c04bd17.js" defer></script><script src="/rollupjs_1/assets/js/9.740a3fd8.js" defer></script>
+  </body>
+</html>

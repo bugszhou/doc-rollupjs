@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>编写类库的需求 | 十分钟学会Rollup.js</title>
+    <meta name="description" content="使用Rollup.js构建公共库">
+    
+    
+    <link rel="preload" href="/rollupjs_1/assets/css/0.styles.4768f33c.css" as="style"><link rel="preload" href="/rollupjs_1/assets/js/app.658a4bef.js" as="script"><link rel="preload" href="/rollupjs_1/assets/js/2.0c04bd17.js" as="script"><link rel="preload" href="/rollupjs_1/assets/js/5.ad098a8e.js" as="script"><link rel="prefetch" href="/rollupjs_1/assets/js/10.dffb93f3.js"><link rel="prefetch" href="/rollupjs_1/assets/js/3.7d1aae6b.js"><link rel="prefetch" href="/rollupjs_1/assets/js/4.8d26481d.js"><link rel="prefetch" href="/rollupjs_1/assets/js/6.c6249d8b.js"><link rel="prefetch" href="/rollupjs_1/assets/js/7.9730a471.js"><link rel="prefetch" href="/rollupjs_1/assets/js/8.66f8a538.js"><link rel="prefetch" href="/rollupjs_1/assets/js/9.740a3fd8.js">
+    <link rel="stylesheet" href="/rollupjs_1/assets/css/0.styles.4768f33c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/rollupjs_1/" class="home-link router-link-active"><!----> <span class="site-name">十分钟学会Rollup.js</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/rollupjs_1/chapter1/" class="sidebar-link">学习Rollup背景</a></li><li><a href="/rollupjs_1/chapter1/prd.html" class="active sidebar-link">编写类库的需求</a></li><li><a href="/rollupjs_1/chapter1/rollup.html" class="sidebar-link">入门Rollup</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="编写类库的需求"><a href="#编写类库的需求" aria-hidden="true" class="header-anchor">#</a> 编写类库的需求</h1> <ol><li>支持浏览器直接使用的压缩后的js文件和可供调试未压缩混淆的js文件</li> <li>支持在es6环境下直接使用esm(es6)的模块，未压缩的js文件</li> <li>使用umd不打包依赖的包，压缩和未压缩的js文件</li></ol> <p>需要生效5个js文件</p> <p>我们先解释一下，这5个文件的用途：</p> <ul><li><ol><li>支持浏览器直接使用的压缩后的js文件和可供调试未压缩混淆的js文件</li></ol></li></ul> <p>这个两个js文件，包含了所有的依赖包。如果其他业务逻辑有相同的依赖，会存在重复的相同代码。这种方式的好处就是可以直接使用，不需要直接引用，通常使用<code>script</code>标签来引用。压缩和未压缩文件只是为了方便使用者调试代码。</p> <ul><li><ol start="2"><li>支持在es6环境下直接使用esm(es6)的模块，未压缩的js文件</li></ol></li></ul> <p>目前很多项目都是使用webpack等工程化构建工具来研发的，使用esm模块的功能，可以避免相同依赖包多次打包。因为esm包是使用<code>import、export</code>等es6的模块化语法，能够支持tree-shaking，减少无用代码。</p> <p>打包后的效果如图：</p> <p><img src="/rollupjs_1/assets/img/esm_demo.f2e2fedb.png" alt="esm"></p> <ul><li><ol start="3"><li>使用umd不打包依赖的包，压缩和未压缩的js文件</li></ol></li></ul> <p>这种打包方式，主要是使用umd的模块规范，开发者在使用该模块时，需要自行处理相关依赖包。</p> <p>打包后的效果如图：</p> <p><img src="/rollupjs_1/assets/img/umd_demo.7ac0bf39.png" alt="umd"></p> <p>下面我们定义一下编译后的文件名：</p> <pre><code>包名.dev.js -- 用于浏览器直接引用的开发版，未压缩
+包名.min.js -- 用于浏览器直接引用的生产版，压缩混淆
+包名.esm.js -- 用于webpack等构建工具，使用`import、export`等es6模块化语法
+包名.common.js -- 使用`umd`模块规范的压缩混淆版
+包名.js -- 使用`umd`模块规范的未压缩混淆版
+
+例如：lodash.dev.js/lodash.min.js/lodash.esm.js/lodash.common.js/lodash.js
+</code></pre> <ul><li><strong>什么是umd模块规范方案<a href="https://segmentfault.com/a/1190000012419990" target="_blank" rel="noopener noreferrer">点击查看<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></strong></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/rollupjs_1/chapter1/" class="prev router-link-active">
+          学习Rollup背景
+        </a></span> <span class="next"><a href="/rollupjs_1/chapter1/rollup.html">
+          入门Rollup
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/rollupjs_1/assets/js/app.658a4bef.js" defer></script><script src="/rollupjs_1/assets/js/2.0c04bd17.js" defer></script><script src="/rollupjs_1/assets/js/5.ad098a8e.js" defer></script>
+  </body>
+</html>

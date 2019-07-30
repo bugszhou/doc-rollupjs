@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>学习Rollup背景 | 十分钟学会Rollup.js</title>
+    <meta name="description" content="使用Rollup.js构建公共库">
+    
+    
+    <link rel="preload" href="/rollupjs_1/assets/css/0.styles.4768f33c.css" as="style"><link rel="preload" href="/rollupjs_1/assets/js/app.658a4bef.js" as="script"><link rel="preload" href="/rollupjs_1/assets/js/2.0c04bd17.js" as="script"><link rel="preload" href="/rollupjs_1/assets/js/8.66f8a538.js" as="script"><link rel="prefetch" href="/rollupjs_1/assets/js/10.dffb93f3.js"><link rel="prefetch" href="/rollupjs_1/assets/js/3.7d1aae6b.js"><link rel="prefetch" href="/rollupjs_1/assets/js/4.8d26481d.js"><link rel="prefetch" href="/rollupjs_1/assets/js/5.ad098a8e.js"><link rel="prefetch" href="/rollupjs_1/assets/js/6.c6249d8b.js"><link rel="prefetch" href="/rollupjs_1/assets/js/7.9730a471.js"><link rel="prefetch" href="/rollupjs_1/assets/js/9.740a3fd8.js">
+    <link rel="stylesheet" href="/rollupjs_1/assets/css/0.styles.4768f33c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/rollupjs_1/" class="home-link router-link-active"><!----> <span class="site-name">十分钟学会Rollup.js</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span></span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/rollupjs_1/chapter1/" class="active sidebar-link">学习Rollup背景</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/rollupjs_1/chapter1/#webpack编译的不足" class="sidebar-link">webpack编译的不足</a></li></ul></li><li><a href="/rollupjs_1/chapter1/prd.html" class="sidebar-link">编写类库的需求</a></li><li><a href="/rollupjs_1/chapter1/rollup.html" class="sidebar-link">入门Rollup</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="学习rollup背景"><a href="#学习rollup背景" aria-hidden="true" class="header-anchor">#</a> 学习Rollup背景</h1> <p>当Rollup出来时，个人内心是拒绝的。我个人对webpack还算了解。所以，在编写一些公共库时，基本上是用webpack来打包，编译出目标文件。后面公司有越来越多的小程序项目，在开发小程序的过程中，意识到Rollup的特性比webpack更加适合用来构建公共库。</p> <h2 id="webpack编译的不足"><a href="#webpack编译的不足" aria-hidden="true" class="header-anchor">#</a> webpack编译的不足</h2> <p>webpack的最大的问题就在于会把依赖库打包到编译后的文件里面，如果业务代码和公共库有相同的依赖，那么会出现多次打包相同的依赖，也就是说编译之后的文件存在两份相同依赖代码，这会造成编译后代码的Size大大增加，运行时，内存消耗也会增加，性能大大降低。</p> <p>要解决这个不足，可以通过编写webpack插件来解决，插件机制给webpack带来了无限可能；第二种就是更换编译工具，使用Rollup。</p> <p>经过一轮的思想挣扎，选择了Rollup。Rollup开箱即用，编译之后的库更加纯粹，自带tree-shaking，插件机制，支持产出esm(es6)格式的库，这也是Rollup使用量越来越多的原因。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><!----> <span class="next"><a href="/rollupjs_1/chapter1/prd.html">
+          编写类库的需求
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/rollupjs_1/assets/js/app.658a4bef.js" defer></script><script src="/rollupjs_1/assets/js/2.0c04bd17.js" defer></script><script src="/rollupjs_1/assets/js/8.66f8a538.js" defer></script>
+  </body>
+</html>
