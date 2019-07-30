@@ -3,6 +3,8 @@ import merge from 'lodash/merge';
 export const MODULE_NAME = 'util';
 
 export function add(a, b) {
+  a = `${a}`;
+  b = `${b}`;
   let i = a.length - 1;
   let j = b.length - 1;
 

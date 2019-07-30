@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<br>
+<br>
+<div>99999999999999999999999999 + 1 = <span id="plus--js"></span></div>
+<br>
+<br>
+<div>测试merge函数：{
+  d: 1,
+  c: 3,
+  } 和 {
+  c: 4,
+  }合并的值为：<span id="merge--js"></span></div>
+</body>
+<script src="../dist/demo.min.js"></script>
+<script>
+document.querySelector('#plus--js').innerHTML = demo.add('99999999999999999999999999', 1);
+document.querySelector('#merge--js').innerHTML = JSON.stringify(demo.merge({
+  d: 1,
+  c: 3,
+}, {
+  c: 4,
+}));
+</script>
+</html>

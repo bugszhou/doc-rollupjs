@@ -11,7 +11,7 @@
 
   merge = merge && merge.hasOwnProperty('default') ? merge['default'] : merge;
 
-  function add(a,b){for(var i=a.length-1,j=b.length-1,carry=0,ret="";0<=i||0<=j;){var x=0,y=0,sum=void 0;0<=i&&(x=a[i]-"0",i--),0<=j&&(y=b[j]-"0",j--),sum=x+y+carry,10<=sum?(carry=1,sum-=10):carry=0,ret=sum+ret;}return carry&&(ret=carry+ret),ret}
+  function add(a,b){a="".concat(a),b="".concat(b);for(var i=a.length-1,j=b.length-1,carry=0,ret="";0<=i||0<=j;){var x=0,y=0,sum=void 0;0<=i&&(x=a[i]-"0",i--),0<=j&&(y=b[j]-"0",j--),sum=x+y+carry,10<=sum?(carry=1,sum-=10):carry=0,ret=sum+ret;}return carry&&(ret=carry+ret),ret}
 
   exports.merge = merge;
   exports.add = add;
